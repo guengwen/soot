@@ -1,0 +1,407 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'mainUI/style2.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'mainUI/style.css' %}">
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #dd8cff;
+      font-family: "Trebuchet MS", sans-serif;
+    }
+
+    #regForm {
+      background-color: #ffffff;
+      margin: 100px auto;
+      font-family: Raleway;
+      padding: 40px;
+      width: 70%;
+      min-width: 300px;
+    }
+
+    h1 {
+      text-align: center;  
+    }
+
+    input {
+      padding: 10px;
+      width: 100%;
+      font-size: 17px;
+      font-family: Raleway;
+      border: 1px solid #aaaaaa;
+    }
+
+    /* Mark input boxes that gets an error on validation: */
+    input.invalid {
+      background-color: #ffdddd;
+    }
+
+    /* Hide all steps by default: */
+    .tab {
+      display: none;
+    }
+
+    .inputLayout .inputLayout2 .inputLayout3,  .inputLayout4{
+      justify-content: center;
+    }
+
+    .inputLayout input, select{
+      padding: 10px;
+      width: 50%%;
+      font-size: 17px;
+      font-family: Raleway;
+      border: 1px solid #aaaaaa;
+    }
+
+    .inputLayout4 input, select{
+      padding: 10px;
+      width: 38%;
+      font-size: 17px;
+      font-family: Raleway;
+      border: 1px solid #aaaaaa;
+    }
+
+    .inputLayout3 input{
+      padding: 10px;
+      width: 33%;
+      font-size: 17px;
+      font-family: Raleway;
+      border: 1px solid #aaaaaa;
+    }
+
+    .inputLayout3 textarea{
+      padding: 10px;
+      width: 100%;
+      font-size: 17px;
+      font-family: Raleway;
+      border: 1px solid #aaaaaa;
+    }
+
+    .inputLayout2 input{
+      padding: 10px;
+      width: 33%;
+      font-size: 17px;
+      font-family: Raleway;
+      border: 1px solid #aaaaaa;
+    }
+
+
+    button {
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-size: 17px;
+      font-family: Raleway;
+      cursor: pointer;
+      background-color: #BF55EC;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    #prevBtn {
+      background-color: #bbbbbb;
+    }
+
+    /* Make circles that indicate the steps of the form: */
+    .step {
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbbbbb;
+      border: none;  
+      border-radius: 50%;
+      display: inline-block;
+      opacity: 0.5;
+    }
+
+    .step.active {
+      opacity: 1;
+    }
+
+    /* Mark the steps that are finished and valid: */
+    .step.finish {
+      background-color: #4CAF50;
+    }
+    </style>
+<body>
+  {% block body %}
+  <form id="regForm" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="navbar-left logo3" style="justify-content: center;"> 
+      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+         viewBox="0 0 291 385.3" style="enable-background:new 0 0 291 385.3;" xml:space="preserve">
+      <style type="text/css">
+        .st0{fill:none; stroke: #BF55EC; stroke-width:5;}
+      </style>
+      <polygon class="st0" points="82.1,12 7.4,138.7 38.7,237.3 "/>
+      <polygon class="st0" points="92.7,5.3 199.4,8.7 223.4,82.7 "/>
+      <polygon class="st0" points="89.4,8.7 223.4,86.7 42.1,237.3 "/>
+      <polygon class="st0" points="206.1,15.3 262.7,66 228.1,82.7 "/>
+      <polygon class="st0" points="262.7,70 228.1,86 266.4,175.3 "/>
+      <polygon class="st0" points="228.1,92.7 262.7,179.3 173.4,328 "/>
+      <polygon class="st0" points="223.4,92.7 44.7,240 167.7,336 "/>
+      </svg>
+    </div>
+    <h1>Sign Up</h1>
+    <!-- One "tab" for each step in the form: -->
+    <div class="tab">Name:
+      <div class="inputLayout3">
+      <p><input placeholder="First name..." oninput="this.className = ''" name="firstname" id="firstname" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "text" minlength="1" maxlength = "50" required>
+      <input placeholder="Middle name..." oninput="this.className = ''" name="f1-middle-name" id="f1-middle-name" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "text" minlength="1" maxlength = "50">
+      <input placeholder="Last name..." oninput="this.className = ''" name="lastname" id="lastname" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "text" minlength="1" maxlength = "50" required></p>
+    </div>
+      <p><label>Address:</label></p>
+      <div class="inputLayout2">
+        <p><input type="text" name="f1-street" placeholder="Street..." class="f1-street form-control" id="f1-street">
+        <input type="text" name="f1-brgy" placeholder="Barangay..." class="f1-brgy form-control" id="f1-brgy">
+        <input type="text" name="f1-city" placeholder="City..." class="f1-city form-control" id="f1-city"></p>
+        <p><input type="text" name="f1-province" placeholder="Province..." class="f1-province form-control" id="f1-province">
+        <input type="text" name="f1-zip" placeholder="ZIP..." class="f1-zip form-control" id="f1-zip">
+        <input type="text" name="f1-country" placeholder="Country..." class="f1-country form-control" id="f1-country"></p>
+      </div>
+
+      <br/><hr>
+      <div class="inputLayout">
+        <p><label>Gender:</label>
+        <select name="f1-gender" id="stat">
+          <option value=" "></option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+          <label >Status:</label>
+                    <select name="f1-status" id="stat">
+                      <option value=" "></option>
+                      <option value="Single">Single</option>
+                      <option value="Married">Married</option>
+                      <option value="Widow">Widow/er</option>
+                      <option value="Divorced">Divorced</option>
+                    </select>
+      </p>
+    </div>
+      <div class="inputLayout4">
+        <p><label>Birthday:</label>
+        <input type="date" id="birthday" name="f1-birthday">
+        <label>Mobile Number:</label>
+        <input type="number" name="f1-mobile" placeholder="Mobile N0. (09...)..." class="f1-mobile form-control" id="f1-mobile" minLength="1" maxLength ="11" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" min = "0" max = "99999999999" /></p>
+      </div>
+      <hr><br/>
+      <p><label>Email Address:</label></p>
+      <p><input type="email" name="f1-email" placeholder="sample@email.com" class="f1-email form-control" id="f1-email" pattern="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$" /></p>
+    <div class="inputLayout4">
+      <p><label>Weight:</label>
+      <input type="number" name="f1-weight" placeholder="Weight in Kilograms..." class="f1-weight form-control" id="f1-weight" minLength="0" maxLength ="6" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" min = "0" max = "200">
+      <label style="color: black;" for="f1-height">Height:</label>
+      <input type="number" name="f1-height" placeholder="Height in Centimeters..." class="f1-height form-control" id="f1-height" minLength="1" maxLength ="7" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" min = "1" max = "500" ></p>
+    </div>
+    <br>
+    <p><label>Religion:</label></p>
+    <p><input type="text" name="f1-religion" placeholder="Religion..." class="f1-religion form-control" id="f1-religion" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" minlength="1" maxlength = "50" ></p>
+    <p><label>Upload Profile Picture</label></p><p>
+    <input type="file" name="profpic" class="f1-first-name form-control"></p>
+    </div>
+    
+  </div>
+    <div class="tab"><strong>FAMILY BACKGROUND:</strong>
+      <div class="inputLayout2">
+        <p><label for="f1-spouse">Spouse's Name</label>
+        <input type="text" name="f1-spouse" placeholder="Spouse..." class="f1-spouse form-control" id="f1-spouse" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" minlength="1" maxlength = "50">
+        <label for="f1-spouseOc">Spouse's Occupation</label>
+        <input type="text" name="f1-spouseOc" placeholder="Occupation..." class="f1-spouseOc form-control" id="f1-spouseOc" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" minlength="1" maxlength = "50"></p>
+      </div>
+      <br>
+      <div>
+        <p><label style="color: black; text-align:left; " for="f1-no">Number of Children:</label></p>
+        <p><input type="number" name="f1-no" placeholder="No. of Children..." class="f1-no form-control" id="f1-no" minLength="1" maxLength ="2" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" min = "0" max = "30" ></p>
+      </div>
+      <br>
+      <div class="inputLayout2" style="justify-content: center;">
+        <p><label style="color: black; text-align:left; " for="f1-mother">Mother's Name:</label>
+        <input type="text" name="f1-mother" placeholder="Mother's Name..." class="f1-mother form-control" id="f1-mother" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" minlength="1" maxlength = "50">
+        <label style="color: black; text-align:left; " for="f1-motherOc">Mother's Occupation:</label>
+        <input type="text" name="f1-motherOc" placeholder="Occupation..." class="f1-motherOc form-control" id="f1-motherOc" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" minlength="1" maxlength = "50"></p>
+      </div>
+      <br>
+       <div class="inputLayout2" style="justify-content: center;">
+        <p><label style="color: black; text-align:left; " for="f1-father">Father's Name</label>
+        <input type="text" name="f1-father" placeholder="Father's Name..." class="f1-father form-control" id="f1-father" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" minlength="1" maxlength = "50">
+        <label style="color: black; text-align:left; " for="f1-fatherOc">Father's Occupation</label>
+        <input type="text" name="f1-fatherOc" placeholder="Occupation..." class="f1-fatherOc form-control" id="f1-fatherOc" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" minlength="1" maxlength = "50"></p>
+      </div>
+    </div>
+    <div class="tab"><strong>EDUCATIONAL BACKGROUND:</strong>
+      <br>
+      <div class="inputLayout3">
+        <p><label><strong>Elementary</strong></label></p>
+        <p> <input type="text" name="f1-school" placeholder="School..." class="f1-school form-control" id="f1-school">
+        <input type="text" name="f1-grade" placeholder="Grade..." class="f1-grade form-control" id="f1-grade">
+        <input type="text" name="f1-yr" placeholder="Year Completed..." class="f1-yr form-control" id="f1-yr"></p>
+        <p><label class="sr-only" for="f1-awards">Awards</label></p>
+        <p><textarea name="f1-awards" placeholder="Awards..." class="f1-about-yourself form-control" id="f1-awards"></textarea></p>
+      </div>
+      <br>
+      <div class="inputLayout3">
+        <p><label><strong>Junior High School</strong></label></p>
+        <p> <input type="text" name="f1-school" placeholder="School..." class="f1-school form-control" id="f1-school">
+        <input type="text" name="f1-grade" placeholder="Grade..." class="f1-grade form-control" id="f1-grade">
+        <input type="text" name="f1-yr" placeholder="Year Completed..." class="f1-yr form-control" id="f1-yr"></p>
+        <p><label class="sr-only" for="f1-awards">Awards</label></p>
+        <p><textarea name="f1-awards" placeholder="Awards..." class="f1-about-yourself form-control" id="f1-awards"></textarea></p>
+      </div>
+      <br>
+      <div class="inputLayout3">
+        <p><label><strong>Senior High School</strong></label></p>
+        <p> <input type="text" name="f1-school" placeholder="School..." class="f1-school form-control" id="f1-school">
+        <input type="text" name="f1-grade" placeholder="Grade..." class="f1-grade form-control" id="f1-grade">
+        <input type="text" name="f1-yr" placeholder="Year Completed..." class="f1-yr form-control" id="f1-yr"></p>
+        <p><label class="sr-only" for="f1-awards">Awards</label></p>
+        <p><textarea name="f1-awards" placeholder="Awards..." class="f1-about-yourself form-control" id="f1-awards"></textarea></p>
+      </div>
+      <br>
+      <div class="inputLayout3">
+        <p><label><strong>College</strong></label></p>
+        <p> <input type="text" name="f1-school" placeholder="School..." class="f1-school form-control" id="f1-school">
+        <input type="text" name="f1-course" placeholder="Course..." class="f1-course form-control" id="f1-course">
+        <input type="text" name="f1-grade" placeholder="Level..." class="f1-grade form-control" id="f1-grade"></p>
+        <p><input type="text" name="f1-yr" placeholder="Year Completed..." class="f1-yr form-control" id="f1-yr"></p>
+        <p><label class="sr-only" for="f1-awards">Awards</label></p>
+        <p><textarea name="f1-awards" placeholder="Awards..." class="f1-about-yourself form-control" id="f1-awards"></textarea></p>
+      </div>
+      <br>
+      <div class="inputLayout3">
+        <p><label><strong>Post Graduate</strong></label></p>
+        <p> <input type="text" name="f1-school" placeholder="School..." class="f1-school form-control" id="f1-school">
+        <input type="text" name="f1-course" placeholder="Course..." class="f1-course form-control" id="f1-course">
+        <input type="text" name="f1-grade" placeholder="Level..." class="f1-grade form-control" id="f1-grade"></p>
+        <p><input type="text" name="f1-yr" placeholder="Year Completed..." class="f1-yr form-control" id="f1-yr"></p>
+        <p><label class="sr-only" for="f1-awards">Awards</label></p>
+        <p><textarea name="f1-awards" placeholder="Awards..." class="f1-about-yourself form-control" id="f1-awards"></textarea></p>
+      </div>
+      <br>
+    </div>
+    <div class="tab" style="text-align: center; justify-content: center; ">
+      <p><h1>COMPLETED!</h1></p>
+      <button type="submit">Continue</button>
+    </div>
+    <div style="overflow:auto;">
+      <div style="float:right;">
+        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+      </div>
+    </div>
+    <!-- Circles which indicates the steps of the form: -->
+    <div style="text-align:center;margin-top:40px;">
+      <span class="step"></span>
+      <span class="step"></span>
+      <span class="step"></span>
+      <span class="step"></span>
+    </div>
+  </form>
+  {% endblock %}
+</body>
+<script>
+  var currentTab = 0; 
+  showTab(currentTab); 
+
+  function showTab(n) {
+    var x = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+    if (n == 0) {
+      document.getElementById("prevBtn").style.display = "none";
+    } else {
+      document.getElementById("prevBtn").style.display = "inline";
+    }
+    
+    if (n == (x.length - 1)) {
+       document.getElementById("nextBtn").style.display = "none";
+    } else{
+       document.getElementById("nextBtn").innerHTML = "Next";
+    }
+    fixStepIndicator(n)
+  }
+
+  function nextPrev(n) {
+    var x = document.getElementsByClassName("tab");
+    if (n == 1 && !validateForm()) return false;
+    x[currentTab].style.display = "none";
+    currentTab = currentTab + n;
+    if (currentTab >= x.length) {
+      document.getElementById("regForm").submit();
+      return false;
+    }
+    // Otherwise, display the correct tab:
+    showTab(currentTab);
+  }
+
+  function validateForm() {
+    // This function deals with validation of the form fields
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].getElementsByTagName("input");
+    // A loop that checks every input field in the current tab:
+    //for (i = 0; i < y.length; i++) {
+      // If a field is empty...
+      if (y[0].value == "" && y[0].id == "firstname") {
+        // add an "invalid" class to the field:
+        y[0].className += " invalid";
+        // and set the current valid status to false
+        valid = false;
+      }
+
+      if (y[2].value == "" && y[2].id == "lastname") {
+        // add an "invalid" class to the field:
+        y[2].className += " invalid";
+        // and set the current valid status to false
+        valid = false;
+      }
+    //}
+    // If the valid status is true, mark the step as finished and valid:
+    if (valid) {
+      document.getElementsByClassName("step")[currentTab].className += " finish";
+    }
+    return valid; // return the valid status
+  }
+
+  function fixStepIndicator(n) {
+    // This function removes the "active" class of all steps...
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) {
+      x[i].className = x[i].className.replace(" active", "");
+    }
+    //... and adds the "active" class on the current step:
+    x[n].className += " active";
+  }
+</script>
+
+<script>
+  function maxLengthCheck(object) {
+  if (object.value.length > object.maxLength)
+    object.value = object.value.slice(0, object.maxLength)
+  }
+
+  function isNumeric (evt) {
+  var theEvent = evt || window.event;
+  var key = theEvent.keyCode || theEvent.which;
+  key = String.fromCharCode (key);
+  var regex = /[0-9]|\./;
+  if ( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}
+</script>
+<script src="{% static 'assets/js/jquery-1.11.1.min.js'%}"></script>
+<script src="{% static 'assets/bootstrap/js/bootstrap.min.js'%}"></script>
+<script src="{% static 'assets/js/jquery.backstretch.min.js'%}"></script>
+<script src="{% static 'assets/js/retina-1.1.0.min.js'%}"></script>
+<script src="{% static 'assets/js/scripts.js'%}"></script>
+
+</html>

@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Product Registration Form</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+		<link rel="stylesheet" href="{% static 'css/stylefont.css' %}">	
+		<link rel="stylesheet" href="{% static 'fonts/linearicons/style.css' %}">			
+		<link rel="stylesheet" href="{% static '/css/styles.css' %}">
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="inner">
+				
+				<img src="{% static '/images/image-1.png' %}" alt="" class="image-1">
+				<form id="form1" name="form1" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
+					<h3 align="center">Product Information</h3>
+					{% csrf_token %}
+					<div>
+						<label>Product Name:<strong style="color:red;">*</strong></label>
+					</div>
+					<div class="form-holder">
+						<span class="lnr lnr-pencil"></span>
+						<input type="text" class="form-control" name="productname" id="productname" placeholder="Product Name" required>
+					</div>
+					<div>
+						<label>Category:<strong style="color:red;">*</strong></label>
+					</div>
+					<div class="form-holder">
+						<span class="lnr lnr-menu-circle"></span>
+						<select name="category" id="category" class="form-control" required>
+                            <option value="" disabled selected>Category</option>
+                            <option value="Men T-Shirt">Men T-Shirt</option>
+                            <option value="Women T-Shirt">Women T-Shirt</option>
+                            <option value="Trend Accessories">Trend Accessories</option>
+                            <option value="Unisex Hoodies">Unisex Hoodies</option>
+                            <option value="Unisex T-Shirt">Unisex T-Shirt</option>
+                        </select>
+					</div>
+					<div>
+						<label>Brand Name:<strong style="color:red;">*</strong></label>
+					</div>
+					<div class="form-holder">
+						<span class="lnr lnr-store"></span>
+						<input type="text" class="form-control" name="brand" id="brand" placeholder="Brand" required>
+					</div>
+					<div>
+						<label><strong>Color:</strong></label>
+					</div>
+					<div class="form-holder">
+						<span class="lnr lnr-pushpin"></span>
+						<input type="text" class="form-control" name="color" id="color" placeholder="Color">
+					</div>
+					<div>
+						<label><strong>Size/Dimension:</strong></label>
+					</div>
+					<div class="form-holder">
+						<span class="lnr lnr-linearicons"></span>
+						<select name="size" id="size" class="form-control">
+                            <option value="" disabled selected>Size</option>
+                            <option value="S">Small</option>
+                            <option value="M">Medium</option>
+                            <option value="L">Large</option>
+                            <option value="XL">Extra Large</option>
+                            <option value="XXL">DoubleX Large</option>
+                        </select>
+					</div>
+					<div>
+						<label><strong>Price:</strong></label>
+					</div>
+					<div class="form-holder">
+						<span class="lnr lnr-tag"></span>
+						<input type="text" class="form-control" name="price" id="price" placeholder="Price" onkeypress="return event.charCode >= 48" min="0" required>
+					</div>
+					<div>
+						<label><strong>Number of Items:</strong></label>
+					</div>
+					<div class="form-holder">
+						<span class="lnr lnr-cart"></span> 
+						<input type="text" class="form-control" name="stock" id="stock" placeholder="No. of Items" onkeypress="return event.charCode >= 48" min="0" required>
+					</div>
+					<div class="form-holder">
+						<span class="lnr lnr-"></span>
+						<p`><strong>Place Sample Images Here</strong></p><hr>
+						<input type="file" accept="image/*" name="file-input" id="file-input" style="display: none;" multiple>
+						<p class="lnr lnr-arrow-down"><label for="file-input" style="cursor: pointer;">Upload Image</label></p>
+						<p><img id="output" width="50%" /></p>
+					</div>
+					<div id="preview"></div>
+					<button type="submit" class="btn btn-primary">Register Product</button>
+				</form>
+				<img src="{% static '/images/image-2.png' %}" alt="" class="image-2">
+			</div>
+			
+		</div>
+
+		<script src="{% static '/js/jquery-3.3.1.min.js' %}"></script>
+		<script src="{% static '/js/main.js' %}"></script>
+		<script src="{% static '/js/global.js' %}"></script>
+		<script src="{% static '/js/upload.js' %}"></script>
+		<script src="{% static '/js/validation.js' %}"></script>
+	</body>
+</html>

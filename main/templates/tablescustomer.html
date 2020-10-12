@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>OCTAL - Tables</title>
+  {% load static %}
+  <!-- Custom fonts for this template -->
+  <link href="{% static '/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <script src="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/sb-admin-2.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/new.css' %}"/>
+
+
+  <link rel="stylesheet" type="text/css" href="{% static 'mainUI/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'mainUI/style2.css' %}">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static '/css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="{% static '/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+  <!-- foreign -->
+   <script src="http://code.jquery.com/jquery-2.0.3.min.js" data-semver="2.0.3" data-require="jquery"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_page.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />
+    <script data-require="jqueryui@*" data-semver="1.10.0" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.js" data-semver="1.9.4" data-require="datatables@*"></script>
+    <style>
+      .modal .cust{
+        width: 100 %;
+      }
+    </style>
+
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-side sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'main:dashboard_view' %}">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class=""></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">OCTAL</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'main:tablescustom_view' %}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Customer Report</span></a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'main:tables_view' %}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Product Report</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Begin Page Content -->
+        <div class="bg-container">
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800"></h1> 
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="proj-header py-3">
+              <h3 class="m-0 font-weight-bold text-design">Customer Report</h3>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <div class="container1" style="display: flex; justify-content: space-between; padding: 20px;" >
+                  <form action="" method="POST" class="flex">
+                    {% csrf_token %}
+                    <div>
+                        <a class="to-register">From Date : </a>
+                        <input type="date" class="datepicker text-black font-bold py-2 pr-4 rounded mr-5 my-5" id="#from_date" name="from_date" value="{{from_date | date:'m-d-Y'}}">
+                        <a class="to-register">To Date : </a>
+                        <input type="date" class="datepicker text-black font-bold py-2 pr-4 rounded mr-5 my-5" id="#to_date"name="to_date" value="{{to_date | date:'m-d-Y'}}">
+                        <button class="button button1" id="search" name="btnSearch" type="submit">Search</button>
+                        <button class="button button1" id="remove"name="btnRemove" type="submit">Remove Search</button>
+                      </form>
+                    </div>
+                  <div>
+                    <a href="{% url 'main:sign_view' %}" class="to-register"><button class="button button1">Add Customer</button></a>
+                    <button onclick="exportTableToExcel('example')" class="button button1">Export Data To Excel File</button>
+                  </div>
+                </div>
+                <table class="table table-bordered" id="example" name="example" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Date Registered</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Date of Birth</th>
+                      <th>Address City</th>
+                      <th>Mobile Number</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <!-- <tfoot>
+                    <tr>
+                      <th>Date Registered</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Date of Birth</th>
+                      <th>Address City</th>
+                      <th>Mobile Number</th>
+                      <th>Actions</th>
+                    </tr>
+                  </tfoot> -->
+                  <tbody>
+                    {% for customer in customers %}
+                    <tr>
+                      <td>{{customer.dateRegistered}}</td>
+                      <td>{{customer.firstname}}</td>
+                      <td>{{customer.lastname}}</td>
+                      <td>{{customer.birthdate}}</td>
+                      <td>{{customer.city}}</td>
+                      <td>{{customer.mobile}}</td>
+                      <td>
+                        <button data-toggle="modal" class="btn btn-success btn-circle btn-sm" data-target="#editModal-{{customer.id}}">
+                            <i class="fas fa-check"></i>
+
+                        </button>
+                        <button data-toggle="modal" class="btn btn-success btn-circle btn-sm" data-target="#orderModal-{{customer.id}}">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                        <button data-toggle="modal" class="btn btn-danger btn-circle btn-sm" data-target="#deleteModal-{{customer.id}}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <!-- View Modal-->
+                      <div class="modal fade" id="editModal-{{customer.id}}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title text-header" id="editModalLabel">View Details</h5>
+                              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                             <form id ="updateForm" method = "POST">
+                              {% csrf_token %}
+                            <div class="modal-body">
+                              <div class="form-group row">
+                                  <input class="form-control form-control-user" id="regdate" name="idno" placeholder="MM/DD/YYY" type="text"/ value="{{customer.id}}" hidden>
+                              </div>
+                              <div class="form-group row">
+                                <div class="col-sm-6 mb-4 mb-sm-0">
+                                    <label class="control-label" for="basic"><strong>Basic Information</strong></label>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                  {% if customer.profile.url is not null %}
+                                      <img src="{{ customer.profile.url }}" width="50px" height="50px" style="border-radius: 8px; border: 1px solid #ddd; padding: 5px;">
+                                  {% else %}
+                                      <img src="{% static 'mainUIimages/box.png' %}" width="100px" height="100px" value = "{{customer.profile}}" style="border-radius: 8px; border: 1px solid #ddd; padding: 5px;"><br>
+                                  {% endif %}
+                              </div>
+                              <div class="form-group row">
+                                <div class="col-sm-12">
+                                  <label class="control-label" for="basic">Name</label>
+                                </div>
+                                <div class="col-sm-4 mb-3 mb-sm-0">
+                                  <input type="text" class="form-control form-control-user" id="firstname" name="firstname" placeholder="First Name" value="{{customer.firstname}}">
+                                </div>
+                                <div class="col-sm-4">
+                                  <input type="text" class="form-control form-control-user" id="middlename" name="middlename" placeholder="Middle Name" value="{{customer.middlename}}">
+                                </div>
+                                <div class="col-sm-4">
+                                  <input type="text" class="form-control form-control-user" id="lastname" name="lastname" placeholder="Last Name" value="{{customer.lastname}}">
+                                </div>
+                                <br/><br/>
+                                <div class="col-sm-12">
+                                  <label class="control-label" for="basic">Gender</label>
+                                </div>
+                                <div class="col-sm-12">
+                                  <input type="text" class="form-control form-control-user" id="gender" name="gender" placeholder="Gender" value="{{customer.gender}}">
+                                </div>
+                                <br/><br/>
+                                <div class="col-sm-12">
+                                  <label class="control-label" for="basic">Birthdate</label>
+                                </div>
+                                <div class="col-sm-12">
+                                  <input type="text" class="form-control form-control-user" id="birthdate" name="birthdate" placeholder="Birthdate" value="{{customer.birthdate| date:'Y-m-d'}}">
+                                </div>
+                                <br/><br/>
+                                <div class="col-sm-12">
+                                  <label class="control-label" for="basic">Status</label>
+                                </div>
+                                <div class="col-sm-12">
+                                  <input type="text" class="form-control form-control-user" id="status" name="status" placeholder="Status" value="{{customer.status}}">
+                                </div>
+                                <br/><br/>
+                                <div class="col-sm-12">
+                                  <label class="control-label" for="basic">Height and Weight</label>
+                                </div>
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control form-control-user" id="weight" name="weight" placeholder="Weight" value="{{customer.weight}}">
+                                </div>
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control form-control-user" id="height" name="height" placeholder="Height" value="{{customer.height}}">
+                                </div>
+                                <br/><br/>
+                                <div class="col-sm-12">
+                                  <label class="control-label" for="basic">Religion</label>
+                                </div>
+                                <div class="col-sm-12">
+                                  <input type="text" class="form-control form-control-user" id="religion" name="religion" placeholder="Religion" value="{{customer.religion}}">
+                                </div>
+                                <br/><br/>
+                                <div class="col-sm-12">
+                                  <label class="control-label" for="basic">Contact</label>
+                                </div>
+                                <div class="col-sm-12">
+                                  <input type="text" class="form-control form-control-user" id="mobile" name="mobile" placeholder="Mobile Number" value="{{customer.mobile}}">
+                                </div>
+                                <br/><br/>
+                                <div class="col-sm-12">
+                                  <label class="control-label" for="basic">Address</label>
+                                </div>
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control form-control-user" id="Street" name="Street" placeholder="Street" value="{{customer.street}}">
+                                </div>
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control form-control-user" id="brgy" name="brgy" placeholder="Barangay" value="{{customer.brgy}}">
+                                </div>
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control form-control-user" id="city" name="city" placeholder="City" value="{{customer.city}}">
+                                </div>
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control form-control-user" id="province" name="province" placeholder="Province" value="{{customer.province}}">
+                                </div>
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control form-control-user" id="ZIP" name="ZIP" placeholder="ZIP" value="{{customer.ZIP}}">
+                                </div>
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control form-control-user" id="country" name="country" placeholder="Country" value="{{customer.country}}">
+                                </div> 
+                              </div>
+                              <div class="form-group row">
+                                <div class="col-sm-6 mb-4 mb-sm-0">
+                                    <label class="control-label" for="fam"><strong>Family Background</strong></label><br>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <div class="col-sm-4">
+                                  <input type="text" class="form-control form-control-user" id="spouseName" name="spouseName" placeholder="Spouse Name" value="{{customer.spouseName}}">
+                                </div>
+                                <div class="col-sm-4">
+                                  <input type="text" class="form-control form-control-user" id="spouseOc" name="spouseOc" placeholder="Spouse Occupation" value="{{customer.spouseOccupation}}">
+                                </div>
+                                <div class="col-sm-4">
+                                  <input type="text" class="form-control form-control-user" id="noOfChil" name="noOfChil" placeholder="No. of Children" value="{{customer.noOfChil}}">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control form-control-user" id="mother" name="mother" placeholder="Mother's Name" value="{{customer.motherName}}">
+                                </div>
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control form-control-user" id="motherOc" name="motherOc" placeholder="Mother's Occupation" value="{{customer.motherOccupation}}">
+                                </div>
+                              </div> 
+                              <div class="form-group row">
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control form-control-user" id="father" name="father" placeholder="Father's Name" value="{{customer.fatherName}}">
+                                </div>
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control form-control-user" id="fatherOc" name="fatherOc" placeholder="Father's Occupation" value="{{customer.fatherOccupation}}">
+                                </div>
+                              </div> 
+                              <div class="form-group row">
+                                <div class="col-sm-6 mb-4 mb-sm-0">
+                                  <label class="control-label" for="date"><strong>Date Registered</strong></label>
+                                  <input class="form-control form-control-user" id="regdate" name="date" placeholder="MM/DD/YYY" type="text"/ value="{{customer.dateRegistered}}">
+                                </div>
+                              </div>
+                            </div>
+                              <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                <button class="btn btn-danger" type="submit" id="updateBtn" name="updateBtn">Update</button>
+                              </div>
+                            </form>
+
+                          </div>
+                        </div>
+                      </div>
+
+                  <!-- Order -->              
+                      <div class="modal fade" id="orderModal-{{customer.id}}" tabindex="-1" role="dialog" aria-labelledby="orderNormalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <form id="orderModal" method="POST">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="orderModalLabel">ORDER</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                              {% csrf_token %}
+                              {% for product in products %}
+                              <div class="modal-body">
+                                <div class="row">
+                                  <div class="col-12" id="startup-tab-1">
+                                    <h6 style="text-align: center; color: black; font-weight: bolder;"></h6>
+                                    <br>
+                                  </div>
+                                </div>
+                                <input type="text" id="idno" name="idno" value="{{customer.id}}" hidden>
+                                <div class="row" style="width: 100%;">
+
+                                  <div class = "col-sm-2">
+                                    <label for="">&nbsp;</label>
+                                    <input type="checkbox" class="form-control" id="check" name="check" value ={{product.id}}>
+                                  </div>
+                                  <div class = "col-sm-4">
+                                    <label for="">Product Name</label>
+                                    <input type="text" class="form-control" id="name"  name="name" value ={{product.name}} disabled>
+                                  </div>
+                                  <div class = "col-sm-3">
+                                    <label for="">Price</label>
+                                    <input type="text" class="form-control" id="price" name="price" value ={{product.price}} disabled>
+                                  </div>
+                                  <div class = "col-sm-3">
+                                    <label for="">Stock</label>
+                                    <input type="text" class="form-control" id="stocks" name="tocks" value ={{product.stocks}} disabled>
+                                  </div>
+                                  <div class = "col-sm-3">
+                                    <label for="">Quantity</label>
+                                    <input type="number" class="form-control" id="quantity" name="quantity">
+                                  </div>
+                                </div>              
+                              {% endfor %}
+                                <div class="modal-footer" style="margin-top: 20px ;">  
+                                  <button type="button" class="button btn-secondary" data-dismiss="modal">CLOSE</button>     
+                                  <button type="submit" id = "orderBtn" name = "orderBtn" class="btn btn-primary" style="background: #BF55EC; border: none;">Order</button>                       
+                                </div>
+                              </div>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+
+                      <!-- Delete Modal-->
+                     <div class="modal fade" id="deleteModal-{{customer.id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="deleteModal">Are you sure?</h5>
+                              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                            <form id="deleteModal" method="POST">
+                              {% csrf_token %}
+                               <div class="modal-body">
+                              <input type="text" name="idno" value = {{customer.id}} hidden>You can no longer recover this row after deletion.</div>
+                            <div class="modal-footer">
+                              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                              <button class="btn btn-danger" type="submit" id="deleteBtn" name="deleteBtn">Delete</button> 
+                            </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+          </div>
+              <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                  <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; OCTAL 2020</span>
+                  </div>
+                </div>
+              </footer>
+        </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{% static '/js/jquery.min.js' %}"></script>
+  <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{% static '/js/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{% static '/js/sb-admin-2.min.js' %}"></script>
+
+  <!-- Page level plugins -->
+  <script src="{% static '/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTables.bootstrap4.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{% static '/js/datatables-demo.js' %}"></script>
+  <script src="{% static '/js/daterangepicker.js' %}"></script>
+  <script src="{% static '/js/script.js' %}"></script>
+  <!-- <script src="{% static '/js/date.js' %}"></script> -->
+
+   <script>
+// Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("orderBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+</script>
+
+</body>
+
+</html>

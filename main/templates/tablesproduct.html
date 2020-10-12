@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>OCTAL - Tables</title>
+  {% load static %}
+  <!-- Custom fonts for this template -->
+  <link href="{% static '/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <script src="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/sb-admin-2.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/new.css' %}"/>
+
+  <!-- Custom styles for this template -->
+  <link href="{% static '/css/sb-admin-2.min.css' %}" rel="stylesheet">
+  <link href="{% static 'js/jquery-ui-1.12.1.custom/jquery-ui.min.css' %}" rel="stylesheet">
+  <link href="{% static 'js/jquery-ui-1.12.1.custom/jquery-ui.structure.min.css' %}" rel="stylesheet">
+  <link href="{% static 'js/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css' %}" rel="stylesheet"> 
+
+  <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui-1.12.1.custom/jquery-ui/.min.js' %}"></script>
+  <script src="{% static 'js/myjs.js' %}"></script>
+
+  <!-- Custom styles for this page -->
+  <link href="{% static '/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+  <!-- foreign -->
+   <script src="http://code.jquery.com/jquery-2.0.3.min.js" data-semver="2.0.3" data-require="jquery"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_page.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />
+    <script data-require="jqueryui@*" data-semver="1.10.0" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.js" data-semver="1.9.4" data-require="datatables@*"></script>
+
+
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-side sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'main:dashboard_view' %}">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class=""></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">OCTAL</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'main:tablescustom_view' %}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Customer Report</span></a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'main:tables_view' %}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Product Report</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Begin Page Content -->
+        <div class="bg-container">
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800"></h1> 
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="proj-header py-3">
+              <h3 class="m-0 font-weight-bold text-design">Product Report</h3>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <div class="container1" style="display: flex; justify-content: space-between; padding: 20px;" >
+                  <form action="" method="POST" class="flex">
+                    {% csrf_token %}
+                    <div>
+                        <a class="to-register">From Date : </a>
+                        <input type="date" class="datepicker text-black font-bold py-2 pr-4 rounded mr-5 my-5" id="#from_date" name="from_date" value="{{from_date | date:'m-d-Y'}}">
+                        <a class="to-register">To Date : </a>
+                        <input type="date" class="datepicker text-black font-bold py-2 pr-4 rounded mr-5 my-5" id="#to_date"name="to_date" value="{{to_date | date:'m-d-Y'}}">
+                        <button class="button button1" id="search" name="btnSearch" type="submit">Search</button>
+                        <button class="button button1" id="remove"name="btnRemove" type="submit">Remove Search
+                        </button>
+                      </form>
+                    </div>
+                  <div>
+                    <a href="{% url 'main:registerprod_view' %}" class="to-register"><button class="button button1">Add Product</button></a>
+                    <button onclick="exportTableToExcel('example')" class="button button1">Export Data To Excel File</button>
+                  </div>
+                </div>
+                  </div>
+                <table class="table table-bordered" id="example" name="example" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Date Registered</th>
+                      <th>Category</th>
+                      <th>Brand</th>
+                      <th>Name</th>
+                      <th>Size</th>
+                      <th>Price</th>
+                      <th>Stocks</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                 <!--  <tfoot>
+                    <tr>
+                      <th>Date Registered</th>
+                      <th>Category</th>
+                      <th>Brand</th>
+                      <th>Name</th>
+                      <th>Size</th>
+                      <th>Price</th>
+                      <th>Stocks</th>
+                      <th>Actions</th>
+                    </tr>
+                  </tfoot> -->
+                  <tbody>
+                    {% for product in products %}
+                    <tr>
+                      <td>{{product.dateRegistered}}</td>
+                      <td>{{product.category}}</td>
+                      <td>{{product.brand}}</td>
+                      <td>{{product.name}}</td>
+                      <td>{{product.size}}</td>
+                      <td>{{product.price}}</td>
+                      <td>{{product.stocks}}</td>
+                      <td>
+                        <button data-toggle="modal" class="btn btn-success btn-circle btn-sm" data-target="#editModal-{{product.id}}">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button data-toggle="modal" class="btn btn-danger btn-circle btn-sm" data-target="#deleteModal-{{product.id}}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <!-- View Modal-->
+                      <div class="modal fade" id="editModal-{{product.id}}" tabindex="-1" role="dialog" aria-labelledby="   editModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title text-header" id="editModalLabel">View Details</h5>
+                              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                            <form id ="updateForm" method = "POST">
+                              {% csrf_token %}
+                              <div class="modal-body">
+                                <div class="form-group row">
+                                  <!-- <div class="col-sm-4 mb-3 mb-sm-0"> -->
+                                    <input type="text" class="form-control form-control-user" id="idno" name="idno" placeholder="ID Number" value={{product.id}} hidden>
+                                  <!-- </div> -->
+                                  <div class="col-sm-4 mb-3 mb-sm-0">
+                                     <label class="control-label" for="basic">Category</label>
+                                      <select name="category" id="category" class="form-control">
+                                          <option value="" disabled selected>{{product.category}}</option>
+                                          <option value="Men T-Shirt">Men T-Shirt</option>
+                                          <option value="Women T-Shirt">Women T-Shirt</option>
+                                          <option value="Trend Accessories">Trend Accessories</option>
+                                          <option value="Unisex Hoodies">Unisex Hoodies</option>
+                                          <option value="Unisex T-Shirt">Unisex T-Shirt</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-sm-4">
+                                     <label class="control-label" for="basic">Brand Name</label>
+                                    <input type="text" class="form-control form-control-user" id="brand" name="brand" placeholder="Brand" value="{{product.brand}}">
+                                  </div>
+
+                                  
+                                  <div class="col-sm-4">
+                                    {% if product.image.url is not null %}
+                                      <img src="{{ product.image.url }}" width="50px" height="50px" style="border-radius: 8px; border: 1px solid #ddd; padding: 5px;">
+                                    {% endif %} 
+                                  </div>
+
+                                  <div class="col-sm-4">
+                                    <label class="control-label" for="basic">Product Name</label>
+                                    <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Name" value="{{product.name}}">
+                                  </div>
+                                  <div class="col-sm-4 mb-3 mb-sm-0">
+                                     <label class="control-label" for="basic">Size</label>
+                                      <select name="size" id="size" class="form-control">
+                                          <option value="" disabled selected>{{product.size}}</option>
+                                          <option value="S">Small</option>
+                                          <option value="M">Medium</option>
+                                          <option value="L">Large</option>
+                                          <option value="XL">Extra Large</option>
+                                          <option value="XXL">DoubleX Large</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <label class="control-label" for="basic">Price</label>
+                                    <input type="text" class="form-control form-control-user" id="price" name="price" placeholder="Price" value="{{product.price}}">
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <label class="control-label" for="basic">Stocks</label>
+                                    <input type="text" class="form-control form-control-user" id="stocks" name="stocks" placeholder="Stocks" value="{{product.stocks}}">
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-sm-6 mb-4 mb-sm-0">
+                                    <label class="control-label" for="date">Date Registered</label>
+                                    <input class="form-control form-control-user" id="regdate" name="dater" placeholder="MM/DD/YYY" type="text"/ value="{{product.dateRegistered}}">
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                  <button class="btn btn-danger" type="submit" id="updateBtn" name="updateBtn">Update</button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Delete Modal-->
+                      <div class="modal fade" id="deleteModal-{{product.id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="deleteModal">Are you sure?</h5>
+                              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                            <form id="deleteModal" method="POST">
+                              {% csrf_token %}
+                               <div class="modal-body">
+                              <input type="text" name="idno" value = {{product.id}} hidden>You can no longer recover this row after deletion.</div>
+                            <div class="modal-footer">
+                              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                              <button class="btn btn-danger" type="submit" id="deleteBtn" name="deleteBtn">Delete</button> 
+                            </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+              <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                  <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; OCTAL 2020</span>
+                  </div>
+                </div>
+              </footer>
+        </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{% static '/js/jquery.min.js' %}"></script>
+  <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{% static '/js/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{% static '/js/sb-admin-2.min.js' %}"></script>
+
+  <!-- Page level plugins -->
+  <script src="{% static '/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTables.bootstrap4.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{% static '/js/datatables-demo.js' %}"></script>
+  <script src="{% static '/js/daterangepicker.js' %}"></script>
+  <script src="{% static '/js/script.js' %}"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Octal{% endblock %}</title>
+        <meta name="description" content="Octal">
+
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'mainUI/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'mainUI/style2.css' %}">
+        <link rel="stylesheet" type="text/css" href="css/layout.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!------ Include the above in your HEAD tag ---------->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--Popover Contacts-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+
+    <body style="background-color: #dd8cff;"> 
+    {% block body %}
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#myNavbar">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+            
+            <div class="navbar-left logo"> 
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 291 385.3" style="enable-background:new 0 0 291 385.3;" xml:space="preserve">
+                <style type="text/css">
+                    .st0{fill:none; stroke: #BF55EC; stroke-width:5;}
+                </style>
+                <polygon class="st0" points="82.1,12 7.4,138.7 38.7,237.3 "/>
+                <polygon class="st0" points="92.7,5.3 199.4,8.7 223.4,82.7 "/>
+                <polygon class="st0" points="89.4,8.7 223.4,86.7 42.1,237.3 "/>
+                <polygon class="st0" points="206.1,15.3 262.7,66 228.1,82.7 "/>
+                <polygon class="st0" points="262.7,70 228.1,86 266.4,175.3 "/>
+                <polygon class="st0" points="228.1,92.7 262.7,179.3 173.4,328 "/>
+                <polygon class="st0" points="223.4,92.7 44.7,240 167.7,336 "/>
+              </svg>
+            </div>
+            <h1 class="brand brand-name navbar-left"><div class = "navbar-left">Octal</h1></div>
+  
+          </div>
+    </nav>
+    <!--<br/><br/><br/><br/><br/><br/><br/>-->
+    <div class="main">
+      <div class="container login-container">
+        <div class="row">
+          <div class="col-md-3 login-form-2">
+            <p>
+            <div class="logo4"> 
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 291 385.3" style="enable-background:new 0 0 291 385.3;" xml:space="preserve">
+                <style type="text/css">
+                    .st0{fill:none; stroke: #BF55EC; stroke-width:5;}
+                </style>
+                <polygon class="st0" points="82.1,12 7.4,138.7 38.7,237.3 "/>
+                <polygon class="st0" points="92.7,5.3 199.4,8.7 223.4,82.7 "/>
+                <polygon class="st0" points="89.4,8.7 223.4,86.7 42.1,237.3 "/>
+                <polygon class="st0" points="206.1,15.3 262.7,66 228.1,82.7 "/>
+                <polygon class="st0" points="262.7,70 228.1,86 266.4,175.3 "/>
+                <polygon class="st0" points="228.1,92.7 262.7,179.3 173.4,328 "/>
+                <polygon class="st0" points="223.4,92.7 44.7,240 167.7,336 "/>
+              </svg>
+              </div></p> 
+              <h3>Login</h3>
+              <form>
+                  <div class="form-group">
+                      <input type="email" class="form-control" placeholder="Username or Email" value="" />
+                  </div>
+                  <div class="form-group">
+                      <input type="password" class="form-control" placeholder="Password" value="" />
+                  </div>
+                  <div class="form-group">
+                      <input type="submit" class="btnSubmit" value="Login" />
+                  </div>
+                  <div class="form-group">
+
+                      <a href="#" class="ForgetPwd" value="Login">Forgot Password?</a>
+                  </div>
+              </form>
+          </div>
+          <div class="col-md-9 login-form-1">
+              <h1>WELCOME TO OCTAL</h1>
+              <br/>
+              <h3>Inventory management for easy stock management, order fullfillment, and customer and inventory control software.</h3>
+              <br/><br/>
+              <img src="{% static 'mainUIimages/box.png' %}" alt="Inventory">
+              <div class="center">
+              <p><h4><a id="myBtn" href="#about" style="color: white;">About</a>
+              <a href="#" title = "Contact" id="popover" data-placement = "bottom" data-content = "Message us through octalbest@gmail.com or call us at 999-9999-999">Contact</a></h2></p>
+              </div>
+          </div>
+            
+        </div>
+      </div>
+    </div>
+    <!--Modal-->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1 style="color: #BF55EC;text-align: center;font-family: 'Trebuchet MS', sans-serif;"><strong>ABOUT US</strong></h1>
+        <p style="color:#333;font-size: 150%;text-align: center;font-family: 'Trebuchet MS', sans-serif;">Octal is an online start-up that will sell fashionable clothing to women and men that enjoys music. Octal will sell a combination of widely recognized name brands as well as clothing lines from select fashion designers. We will closely follow generational fashion trends as well as our own customers’ purchasing preferences. 
+        <br/><br/>
+
+        Octal is a start-up and a product of great imaginative minds. Melgwen Cariquitan and Edah Marie Bohol are the founders of Octal. 
+
+        <br/><br/>
+        Further, Octal will not just be a online store that sells clothes. Our clientele will benefit from an experienced, knowledgeable team. Here at Octal, we can sing together, celebrate music, and wear trendy and in vogue items anytime you want.</p>
+      </div>
+
+   
+    </div>
+
+    {% endblock %}
+    <script>
+// Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+</script>
+<script>
+  $('#popover').popover({ 
+    html : true,
+    title: function() {
+      return $("#popover-head").html();
+    },
+    content: function() {
+      return $("#popover-content").html();
+    }
+  });
+</script>
+</body>
+
+</html>
